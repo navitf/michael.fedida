@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">מיכאל פדידה, מאמרים</a></h1>
+    </header>
+    <main>
+        <div id="article-content"></div>
+        <div class="pdf-container">
+            <iframe id="pdf-embed" class="pdf-embed" src=""></iframe>
+            <a id="download-link" class="download-link" href="" download>Download PDF</a>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Get article ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+        
+        const article = articles.find(a => a.slug === articleId);
+        
+        if (article) {
+            document.title = article.title;
+            
+            if (article.htmlFile) {
+                // Load HTML content from file
+                fetch(article.htmlFile)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        document.getElementById('pdf-embed').style.display = 'none';
+                        document.getElementById('download-link').style.display = 'none';
+                        document.getElementById('article-content').innerHTML = `
+                            <div class="article-text" style="margin-top: 30px; line-height: 1.8;">${html}</div>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error('Error loading HTML file:', error);
+                        document.getElementById('pdf-embed').style.display = 'none';
+                        document.getElementById('download-link').style.display = 'none';
+                        document.getElementById('article-content').innerHTML += `
+                            <p>Content not available. Error: ${error.message}</p>
+                            <p>Trying to load: ${article.htmlFile}</p>
+                        `;
+                    });
+            } else if (article.content) {
+                // Display inline HTML content
+                document.getElementById('pdf-embed').style.display = 'none';
+                document.getElementById('download-link').style.display = 'none';
+                document.getElementById('article-content').innerHTML = `
+                    <div class="article-text" style="margin-top: 30px; line-height: 1.8;">${article.content}</div>
+                `;
+            } else if (article.pdf) {
+                // Display PDF with title
+                document.getElementById('article-content').innerHTML = `<h2>${article.title}</h2>`;
+                document.getElementById('pdf-embed').src = article.pdf;
+                document.getElementById('download-link').href = article.pdf;
+            }
+        }
+    </script>
+</body>
+</html>
