@@ -130,3 +130,12 @@ nav a:hover {
 .download-link:hover {
     background: #0052a3;
 }
+
+
+@media (max-width: 768px) {
+    .article img {
+        float: none !important;
+        margin: 10px auto !important;
+        display: block !important;
+    }
+}
