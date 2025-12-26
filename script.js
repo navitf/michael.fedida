@@ -27,7 +27,7 @@ const articles = [
         slug: "haachim"
     },
     {
-        title: "האותות והאתונות - שמואל א י",
+        title: "האותות והאתונות - שמואל א' י'",
         date: "",
         description: "ניתוח מעמיק של סיפור האותות ששמואל נתן לשאול והמשמעות הסמלית של האתונות",
         htmlFile: "articles/haotot_atonot.html",
