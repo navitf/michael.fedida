@@ -6,8 +6,8 @@ const articles = [
         date: "",
         description: "המחקר דן בהרחבה באנתולוגיה \"מקוה ישראל\" של הרב ישראל קושטא (ליוורנו 1851). הספר\n" +
           "נמנה עם המקראות הראשונות בעברית לילדים בעולם החינוך היהודי. ",
-        pdf: "pdfs/mikve.pdf",
-        image: "pictures/mikve.png",
+        pdf: "pdfs/mikve_israel_kosta.pdf",
+        image: "pictures/mikve_israel_kosta.jpg",
         slug: "mikve"
     },
     {
