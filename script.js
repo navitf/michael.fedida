@@ -14,7 +14,7 @@ const articles = [
         title: "הגדה של פסח: עבדות בתוך חירות או מה נשתנה וחד גדיא",
         date: "",
         description: "ניתוח מוטיב הגלות והגאולה בהגדה של פסח, המשווה בין השעבוד בעבר ליציאת מצרים לבין הגלות בהווה והערגה לגאולה משיחית",
-        pdf: "pdfs/hagada.pdf",
+        pdf: "pdfs/hagada2.pdf",
         image: "pictures/hagada.jpg",
         slug: "hagada"
     },
@@ -22,7 +22,7 @@ const articles = [
         title: "אגדת האחים ומקום המקדש",
         date: "",
         description: "אודות אגדת האחים ומקורותיה השונים",
-        pdf: "pdfs/haachim.pdf",
+        pdf: "pdfs/haachim2.pdf",
         image: "pictures/hahachim.jpg",
         slug: "haachim"
     },
