@@ -11,6 +11,14 @@ const articles = [
         slug: "mikve"
     },
     {
+        title: "חד גדיא",
+        date: "",
+        description: "ניתוח חד גדיא כסיפור המציג שרשרת של חוסר צדק ואי-היגיון",
+        pdf: "pdfs/had_gadya.pdf",
+        image: "pictures/had_gadya_img.jpeg",
+        slug: "had_gadya"
+    },
+    {
         title: "הגדה של פסח: עבדות בתוך חירות או מה נשתנה וחד גדיא",
         date: "",
         description: "ניתוח מוטיב הגלות והגאולה בהגדה של פסח, המשווה בין השעבוד בעבר ליציאת מצרים לבין הגלות בהווה והערגה לגאולה משיחית",
