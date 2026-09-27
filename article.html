@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="מאמר מאת מיכאל פדידה.">
     <title>Article</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="compact">
     <header>
-        <h1><a href="index.html">מיכאל פדידה, פרסומים ומאמרים</a></h1>
+        <h1><a href="index.html">מיכאל פדידה, חיבורים ומאמרים</a></h1>
+        <nav>
+            <a href="index.html">מאמרים</a>
+            <a href="tanach.html">פרשנות תנ"ך</a>
+            <a href="about.html">אודות</a>
+        </nav>
     </header>
     <main>
         <div id="article-content"></div>
@@ -21,17 +27,25 @@
         </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="tanach-data.js"></script>
     <script src="script.js"></script>
+    <script src="tanach.js"></script>
     <script>
         // Get article ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const articleId = urlParams.get('id');
-        
+
+        // Tanach chapters (generated data) take precedence; slugs never overlap.
+        const chapter = (typeof findChapter === 'function') ? findChapter(articleId) : null;
+
+        if (chapter) {
+            renderChapterPage(chapter);
+        } else {
         const article = articles.find(a => a.slug === articleId);
-        
+
         if (article) {
             document.title = article.title;
-            
+
             if (article.htmlFile) {
                 // Load HTML content from file
                 fetch(article.htmlFile)
@@ -74,6 +88,7 @@
                 document.getElementById('view-link').href = article.pdf;
                 document.getElementById('download-link').href = article.pdf;
             }
+        }
         }
     </script>
 </body>

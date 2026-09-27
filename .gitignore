@@ -1,0 +1,8 @@
+# Raw Word sources for the Tanach chapters (converted by tools/build-tanach.js).
+# Kept out of the repo so GitHub Pages never serves them; keep your own backup.
+source-docx/
+
+# Word lock files, macOS folder metadata, IDE settings
+~$*
+.DS_Store
+.idea/
