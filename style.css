@@ -606,3 +606,10 @@ body.compact h1 {
 .chapter-eyebrow + .chapter-title {
     margin-top: 2px;
 }
+
+.tanach-text .subtitle {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: -0.5em;
+}

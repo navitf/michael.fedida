@@ -101,7 +101,9 @@ function bookNamesOf(book) {
 
 // Parses "ל"ז – נ'", "לז-נ", "12", "בראשית כ"א" into { chapter, chapterEnd }.
 function parseChapterRef(text, book) {
-  let s = String(text || '').replace(QUOTES, '').replace(/\s+/g, ' ').trim();
+  let s = String(text || '').replace(QUOTES, '').replace(/[,،]/g, ' ').replace(/\bפרק(ים)?\b/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  s = s.replace(/^\((.*)\)$/, '$1').trim();
   for (const name of bookNamesOf(book)) {
     const n = name.replace(QUOTES, '');
     if (s.startsWith(n + ' ')) { s = s.slice(n.length + 1).trim(); break; }
@@ -113,6 +115,19 @@ function parseChapterRef(text, book) {
   if (!chapter || chapter > book.chapters) return null;
   if (chapterEnd && (chapterEnd <= chapter || chapterEnd > book.chapters)) return null;
   return { chapter, chapterEnd };
+}
+
+// The book whose name opens a reference line such as "שמות א" (null if none / no name given).
+function bookNamedIn(text) {
+  const s = String(text || '').replace(QUOTES, '').replace(/[,،]/g, ' ').replace(/\bפרק(ים)?\b/g, ' ')
+    .replace(/\s+/g, ' ').trim().replace(/^\((.*)\)$/, '$1').trim();
+  for (const b of BOOKS) {
+    for (const name of bookNamesOf(b)) {
+      const n = name.replace(QUOTES, '');
+      if (s.startsWith(n + ' ') && parseChapterRef(s, b)) return b;
+    }
+  }
+  return null;
 }
 
 // Chapter (or range) from a file name such as "בראשית לז-נ", "בראשית ל סופי (2)", "פרק 12".
@@ -128,7 +143,12 @@ function chapterFromStem(stem, book) {
   return null;
 }
 
+// chapter 0 marks an essay about the whole book (no chapter number); it is
+// stored as book.html and listed after the last chapter.
+const BOOK_LEVEL = { chapter: 0, chapterEnd: null };
+
 function chapterKey(ref) {
+  if (!ref.chapter) return 'book';
   return ref.chapterEnd ? `${ref.chapter}-${ref.chapterEnd}` : String(ref.chapter);
 }
 
@@ -156,7 +176,9 @@ function encodeText(s) {
 }
 
 function textOf(html) {
-  return decodeEntities(html.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
+  return decodeEntities(html.replace(/<[^>]+>/g, ''))
+    .replace(/[­‎‏‪-‮⁦-⁩]/g, '')
+    .replace(/\s+/g, ' ').trim();
 }
 
 function resolvePandoc() {
@@ -172,7 +194,7 @@ function resolvePandoc() {
 
 // ---------------------------------------------------------------- scan sources
 function scanSources() {
-  const result = { files: [], unmatched: [] };
+  const result = { files: [], unmatched: [], wrongBook: [] };
   if (!fs.existsSync(SRC_DIR)) {
     console.warn(`  ! source folder not found: ${SRC_DIR}`);
     return result;
@@ -188,6 +210,11 @@ function scanSources() {
         const src = path.join(full, f);
         if (!book) { result.unmatched.push(`${src} (תיקייה לא מזוהה)`); continue; }
         const stem = path.basename(f, path.extname(f));
+        const namedBook = bookNamedIn(stem.replace(/\(\d+\)/g, ' '));
+        if (namedBook && namedBook !== book) {
+          result.wrongBook.push(`${src}: שם הקובץ מציין ${namedBook.name}, אבל נמצא בתיקיית ${book.name}`);
+          continue;
+        }
         result.files.push({ book, src, fileRef: chapterFromStem(stem, book) });
       }
     } else if (entry.isFile() && isDocx(entry.name)) {
@@ -206,31 +233,54 @@ function scanSources() {
 // ---------------------------------------------------------------- convert
 // Turns the leading title / reference / author paragraphs into <h1>title</h1>.
 function promoteHeader(html, book) {
-  const paraRe = /^\s*<p\b[^>]*>([\s\S]*?)<\/p>\s*/;
+  // A header line may be a plain paragraph or a Word heading. Up to four short
+  // lines are examined: the title, an optional subtitle, the chapter reference
+  // and the author, in any order. Consumption stops at the first long paragraph.
+  const paraRe = /^\s*<(p|h[1-3])\b[^>]*>([\s\S]*?)<\/\1>\s*/;
+  const lines = [];
   let rest = html;
-  let title = null;
-  let ref = null;
-  let consumed = 0;
-
-  while (consumed < 4) {
+  while (lines.length < 4) {
     const m = rest.match(paraRe);
     if (!m) break;
-    const text = textOf(m[1]);
-    if (!text) { rest = rest.slice(m[0].length); continue; }
-    if (text.length > HEADER_MAX_CHARS) break;
-
-    const asRef = parseChapterRef(text, book);
-    if (text === AUTHOR) { /* drop */ }
-    else if (asRef && !ref) ref = asRef;
-    else if (!title) title = text;
-    else break;
+    const text = textOf(m[2]);
+    if (text && text.length > HEADER_MAX_CHARS) break;
+    lines.push({ text, len: m[0].length });
     rest = rest.slice(m[0].length);
-    consumed++;
   }
 
-  if (!title && !ref) return { html, title: null, ref: null };
-  const heading = title ? `<h1>${encodeText(title)}</h1>\n` : '';
-  return { html: heading + rest, title, ref };
+  let title = null;
+  let subtitle = null;
+  let ref = null;
+  let otherBook = null;
+  let lastMeta = -1;
+  let titleIdx = -1;
+  let subtitleIdx = -1;
+
+  lines.forEach((line, i) => {
+    const text = line.text;
+    if (!text) return;
+    const asRef = parseChapterRef(text, book);
+    const named = asRef ? null : bookNamedIn(text);
+    if (text === AUTHOR) lastMeta = i;
+    else if (asRef && !ref) { ref = asRef; lastMeta = i; }
+    else if (named && named !== book && !otherBook) { otherBook = named; lastMeta = i; }
+    else if (!title) { title = text; titleIdx = i; }
+    else if (!subtitle) { subtitle = text; subtitleIdx = i; }
+  });
+
+  // A second plain line counts as a subtitle only when header lines follow it.
+  if (subtitle && subtitleIdx > lastMeta) { subtitle = null; subtitleIdx = -1; }
+  const consumeThrough = Math.max(lastMeta, titleIdx, subtitleIdx);
+  if (consumeThrough < 0) return { html, title: null, ref: null, otherBook: null };
+
+  const keptLines = lines.slice(consumeThrough + 1);
+  const consumedLen = lines.slice(0, consumeThrough + 1).reduce((n, l) => n + l.len, 0);
+  const putBack = html.slice(html.length - rest.length - keptLines.reduce((n, l) => n + l.len, 0));
+  void consumedLen;
+
+  const heading = (title ? `<h1>${encodeText(title)}</h1>\n` : '') +
+    (subtitle ? `<p class="subtitle">${encodeText(subtitle)}</p>\n` : '');
+  return { html: heading + putBack, title, ref, otherBook };
 }
 
 function cleanFragment(html) {
@@ -259,7 +309,7 @@ function removeIfEmptyDir(dir) {
 }
 
 function convertAll(scan) {
-  const stats = { written: 0, unchanged: 0, failed: [], unmatched: [], duplicates: [], mismatched: [] };
+  const stats = { written: 0, unchanged: 0, failed: [], unmatched: [], duplicates: [], mismatched: [], wrongBook: [], extra: [], stale: [], bookLevel: [] };
   if (!scan.files.length) return stats;
 
   const pandoc = resolvePandoc();
@@ -268,11 +318,11 @@ function convertAll(scan) {
     process.exit(1);
   }
 
-  const seen = new Map(); // "bookId/key" -> src
-  for (const item of scan.files) {
+  // Pass 1: convert every document and work out its chapter.
+  const docs = [];
+  scan.files.forEach((item, i) => {
     const { book, src } = item;
-    // Media goes next to the file-name-derived chapter; moved below if the doc says otherwise.
-    const tmpMedia = path.join(MEDIA_DIR, book.id, '_tmp');
+    const tmpMedia = path.join(MEDIA_DIR, book.id, `_tmp${i}`);
     let raw;
     try {
       raw = execFileSync(pandoc, [
@@ -283,43 +333,99 @@ function convertAll(scan) {
       const msg = (err.stderr && err.stderr.toString().trim()) || err.message;
       stats.failed.push(`${src}: ${msg}`);
       removeIfEmptyDir(tmpMedia);
-      continue;
+      return;
     }
-
     const promoted = promoteHeader(raw, book);
-    const ref = promoted.ref || item.fileRef;
-    if (!ref) {
-      stats.unmatched.push(`${src} (לא נמצא מספר פרק בשם הקובץ או בראש המסמך)`);
+    if (promoted.otherBook) {
+      stats.wrongBook.push(`${src}: המסמך מציין ${promoted.otherBook.name}, אבל נמצא בתיקיית ${book.name}`);
       removeIfEmptyDir(tmpMedia);
-      continue;
+      return;
     }
-    if (promoted.ref && item.fileRef && chapterKey(promoted.ref) !== chapterKey(item.fileRef)) {
-      stats.mismatched.push(`${src}: שם הקובץ מציין ${chapterKey(item.fileRef)}, המסמך מציין ${chapterKey(promoted.ref)} (נלקח מהמסמך)`);
+    let fileRef = item.fileRef;
+    if (!promoted.ref && !fileRef) {
+      // No chapter anywhere: an essay about the whole book.
+      fileRef = BOOK_LEVEL;
+      stats.bookLevel.push(`${src} → ${book.name}, "${promoted.title || '(ללא כותרת)'}"`);
     }
-    const key = `${book.id}/${chapterKey(ref)}`;
-    if (seen.has(key)) {
-      stats.duplicates.push(`${src} duplicates ${seen.get(key)}`);
-      removeIfEmptyDir(tmpMedia);
-      continue;
-    }
-    seen.set(key, src);
+    docs.push({ item, book, src, tmpMedia, html: cleanFragment(promoted.html), docRef: promoted.ref, fileRef });
+  });
 
-    const out = outPath(book.id, ref);
-    const media = mediaPath(book.id, ref);
-    let html = cleanFragment(promoted.html);
-    if (fs.existsSync(tmpMedia)) {
+  // The document's own reference line wins over the file name, unless that
+  // would collide with a file whose name and reference agree.
+  const confirmed = new Set();
+  for (const d of docs) {
+    if (d.docRef && d.fileRef && chapterKey(d.docRef) === chapterKey(d.fileRef)) confirmed.add(`${d.book.id}/${chapterKey(d.docRef)}`);
+  }
+  for (const d of docs) {
+    if (d.docRef && d.fileRef && chapterKey(d.docRef) !== chapterKey(d.fileRef)) {
+      const docKey = `${d.book.id}/${chapterKey(d.docRef)}`;
+      if (confirmed.has(docKey)) {
+        d.ref = d.fileRef;
+        stats.mismatched.push(`${d.src}: המסמך מציין ${chapterKey(d.docRef)} אבל פרק זה כבר תפוס; נלקח ${chapterKey(d.fileRef)} משם הקובץ`);
+      } else {
+        d.ref = d.docRef;
+        stats.mismatched.push(`${d.src}: שם הקובץ מציין ${chapterKey(d.fileRef)}, המסמך מציין ${chapterKey(d.docRef)} (נלקח מהמסמך)`);
+      }
+    } else {
+      d.ref = d.docRef || d.fileRef;
+    }
+    d.key = `${d.book.id}/${chapterKey(d.ref)}`;
+  }
+
+  // Several articles on the same chapter get a letter suffix (2.html, 2b.html, ...),
+  // in file-name order. Byte-identical duplicates are skipped.
+  const groups = new Map();
+  for (const d of docs) {
+    if (!groups.has(d.key)) groups.set(d.key, []);
+    groups.get(d.key).push(d);
+  }
+  const produced = new Set();
+  for (const group of groups.values()) {
+    // The plainest file name ("שמואל ב כד.docx" before "שמואל ב כד המשך.docx") is the main article.
+    group.sort((a, b) => path.basename(a.src).length - path.basename(b.src).length || a.src.localeCompare(b.src, 'he'));
+    let letter = 0;
+    const kept = [];
+    for (const d of group) {
+      const twin = kept.find((k) => k.html === d.html);
+      if (twin) { stats.duplicates.push(`${d.src} זהה ל-${twin.src}`); removeIfEmptyDir(d.tmpMedia); continue; }
+      d.part = letter ? String.fromCharCode(96 + letter) : '';
+      letter++;
+      kept.push(d);
+      if (d.part) stats.extra.push(`${d.src}: מאמר נוסף על ${d.book.name} ${chapterKey(d.ref)} (${chapterKey(d.ref)}${d.part}.html)`);
+    }
+  }
+
+  // Pass 2: write the outputs.
+  for (const d of docs) {
+    if (d.part === undefined) continue;
+    const name = chapterKey(d.ref) + d.part;
+    const out = path.join(OUT_DIR, d.book.id, `${name}.html`);
+    const media = path.join(MEDIA_DIR, d.book.id, name);
+    let html = d.html;
+    if (fs.existsSync(d.tmpMedia)) {
       fs.rmSync(media, { recursive: true, force: true });
-      fs.renameSync(tmpMedia, media);
-      html = html.split(tmpMedia.split(path.sep).join('/')).join(media.split(path.sep).join('/'));
+      fs.renameSync(d.tmpMedia, media);
+      html = html.split(d.tmpMedia.split(path.sep).join('/')).join(media.split(path.sep).join('/'));
       removeIfEmptyDir(media);
     }
-
+    produced.add(out.split(path.sep).join('/'));
     fs.mkdirSync(path.dirname(out), { recursive: true });
     const before = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : null;
     if (before === html) { stats.unchanged++; continue; }
     fs.writeFileSync(out, html);
     stats.written++;
-    console.log(`  ✓ ${src}  →  ${out}`);
+    console.log(`  ✓ ${d.src}  →  ${out}`);
+  }
+
+  // Outputs that no source produced this run (renamed or removed documents).
+  if (!ONLY && fs.existsSync(OUT_DIR)) {
+    for (const dir of fs.readdirSync(OUT_DIR, { withFileTypes: true })) {
+      if (!dir.isDirectory()) continue;
+      for (const f of fs.readdirSync(path.join(OUT_DIR, dir.name))) {
+        const p = [OUT_DIR, dir.name, f].join('/');
+        if (f.endsWith('.html') && !produced.has(p)) stats.stale.push(p);
+      }
+    }
   }
   return stats;
 }
@@ -342,10 +448,11 @@ function extractTitleAndBlurb(html) {
   }
 
   let blurb = '';
-  const paraRe = /<p\b[^>]*>([\s\S]*?)<\/p>/g;
+  const paraRe = /<p\b([^>]*)>([\s\S]*?)<\/p>/g;
   let m;
   while ((m = paraRe.exec(rest))) {
-    const t = textOf(m[1]);
+    if (/class="subtitle"/.test(m[1])) continue;
+    const t = textOf(m[2]);
     if (!t) continue;
     const sentence = t.match(/^(.*?[.!?])(\s|$)/);
     blurb = sentence ? sentence[1] : t;
@@ -363,21 +470,24 @@ function scanOutputs() {
     const book = BOOK_BY_ID.get(dir.name);
     if (!book) { console.warn(`  ! ${path.join(OUT_DIR, dir.name)} is not a known bookId, ignored`); continue; }
     for (const f of fs.readdirSync(path.join(OUT_DIR, dir.name))) {
-      const m = f.match(/^(\d+)(?:-(\d+))?\.html$/);
+      const m = f.match(/^(\d+|book)(?:-(\d+))?([a-z])?\.html$/);
       if (!m) continue;
-      const chapter = parseInt(m[1], 10);
+      const chapter = m[1] === 'book' ? 0 : parseInt(m[1], 10);
       const chapterEnd = m[2] ? parseInt(m[2], 10) : null;
+      const part = m[3] || '';
       const htmlFile = path.join(OUT_DIR, dir.name, f).split(path.sep).join('/');
       const { title, blurb } = extractTitleAndBlurb(fs.readFileSync(htmlFile, 'utf8'));
-      const entry = { bookId: book.id, chapter, slug: `${book.id}-${chapterKey({ chapter, chapterEnd })}`, htmlFile, title, blurb };
+      const entry = { bookId: book.id, chapter, slug: `${book.id}-${chapterKey({ chapter, chapterEnd })}${part}`, htmlFile, title, blurb };
       if (chapterEnd) entry.chapterEnd = chapterEnd;
+      if (part) entry.part = part;
       chapters.push(entry);
     }
   }
   chapters.sort((a, b) =>
     BOOKS.indexOf(BOOK_BY_ID.get(a.bookId)) - BOOKS.indexOf(BOOK_BY_ID.get(b.bookId)) ||
-    a.chapter - b.chapter ||
-    (a.chapterEnd || 0) - (b.chapterEnd || 0));
+    (a.chapter || Infinity) - (b.chapter || Infinity) ||
+    (a.chapterEnd || 0) - (b.chapterEnd || 0) ||
+    (a.part || '').localeCompare(b.part || ''));
   return chapters;
 }
 
@@ -442,7 +552,7 @@ function main() {
     books = writeData(chapters);
     console.log(`\n${DATA_FILE}: ${books.length} ספרים, ${chapters.length} פרקים`);
     for (const b of books) {
-      const n = chapters.filter((c) => c.bookId === b.id).length;
+      const n = chapters.filter((c) => c.bookId === b.id && c.chapter).length;
       const missing = n < b.chapters ? `  (חסרים ${b.chapters - n})` : '';
       console.log(`  ${b.name.padEnd(14)} ${String(n).padStart(3)} / ${b.chapters}${missing}`);
     }
@@ -462,9 +572,13 @@ function main() {
       list.forEach((x) => console.log('  - ' + x));
     };
     report('לא זוהו', scan.unmatched.concat(convStats.unmatched));
+    report('הספר במסמך אינו הספר של התיקייה (דולגו)', scan.wrongBook.concat(convStats.wrongBook));
     report('שם הקובץ והמסמך לא תואמים', convStats.mismatched);
-    report('כפילויות (הקובץ הראשון נשמר)', convStats.duplicates);
+    report('מאמרים על הספר כולו (ללא מספר פרק, מוצגים אחרי הפרק האחרון)', convStats.bookLevel);
+    report('מאמרים נוספים על אותו פרק', convStats.extra);
+    report('כפילויות זהות (דולגו)', convStats.duplicates);
     report('נכשלו בהמרה', convStats.failed);
+    report('קבצי פלט ישנים שאין להם מקור (מומלץ למחוק)', convStats.stale);
   }
   console.log('');
 }

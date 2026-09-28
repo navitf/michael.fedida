@@ -28,12 +28,14 @@ function hebrewNumeral(n, punct) {
 
 // "פרק ג'" or, for a document covering several chapters, "פרקים ל"ז–נ'".
 function chapterLabel(c) {
+    if (!c.chapter) return 'על הספר';
     if (c.chapterEnd) return `פרקים ${hebrewNumeral(c.chapter, true)}–${hebrewNumeral(c.chapterEnd, true)}`;
     return `פרק ${hebrewNumeral(c.chapter, true)}`;
 }
 
 // Compact form for the chapter strip: "ג" or "לז–נ".
 function chapterShort(c) {
+    if (!c.chapter) return 'הספר';
     if (c.chapterEnd) return `${hebrewNumeral(c.chapter)}–${hebrewNumeral(c.chapterEnd)}`;
     return hebrewNumeral(c.chapter);
 }
@@ -80,7 +82,7 @@ function breadcrumbHTML(items) {
 }
 
 function chapterCountLabel(book, full) {
-    const n = tanachChaptersOf(book.id).length;
+    const n = tanachChaptersOf(book.id).filter(c => c.chapter).length;
     if (full && n < book.chapters) return `${n} מתוך ${book.chapters} פרקים`;
     return `${n} פרקים`;
 }
@@ -111,7 +113,7 @@ function bookPillsHTML(activeId) {
 
 function chapterCardHTML(book, c) {
     const label = chapterLabel(c);
-    const title = c.title || `${book.name} ${label}`;
+    const title = c.title || (c.chapter ? `${book.name} ${label}` : `${book.name}: ${label}`);
     return `<a class="chapter-card" href="article.html?id=${c.slug}">` +
         `<span class="chapter-badge">${label}</span>` +
         '<span class="chapter-body">' +
@@ -127,7 +129,7 @@ function renderTanachHero() {
     const hero = document.getElementById('tanach-hero');
     if (!hero) return;
     const heading = document.querySelector('.section-title');
-    if (!tanachChapters().length) {
+    if (!tanachChapterCount()) {
         hero.style.display = 'none';
         if (heading) heading.style.display = 'none';
         return;
@@ -136,7 +138,7 @@ function renderTanachHero() {
         '<div class="tanach-hero">' +
             '<div class="hero-head">' +
                 '<h2><a href="tanach.html">פרשנות פרקי תנ"ך</a></h2>' +
-                `<span class="book-meta">${tanachChapters().length} פרקים</span>` +
+                `<span class="book-meta">${tanachChapterCount()} פרקים</span>` +
             '</div>' +
             '<p class="hero-intro">עיון בפרקי התנ"ך, פרק אחר פרק. בחרו ספר כדי לעבור לרשימת הפרקים.</p>' +
             bookGridHTML() +
@@ -156,9 +158,9 @@ function renderBookPage(bookId) {
             breadcrumbHTML([['index.html', 'בית'], [null, 'פרשנות תנ"ך']]) +
             '<div class="book-heading">' +
                 '<h2>פרשנות פרקי תנ"ך</h2>' +
-                `<span class="book-meta">${tanachChapters().length} פרקים</span>` +
+                `<span class="book-meta">${tanachChapterCount()} פרקים</span>` +
             '</div>' +
-            (tanachChapters().length
+            (tanachChapterCount()
                 ? bookGridHTML()
                 : '<p class="empty-note">הפרקים יתפרסמו בקרוב.</p>');
         return;
@@ -189,7 +191,7 @@ function renderChapterPage(chapter) {
     const prev = idx > 0 ? chapters[idx - 1] : null;
     const next = idx >= 0 && idx < chapters.length - 1 ? chapters[idx + 1] : null;
     const label = chapterLabel(chapter);
-    const defaultTitle = `${book.name} ${label}`;
+    const defaultTitle = chapter.chapter ? `${book.name} ${label}` : `${book.name}: ${label}`;
     const pageTitle = chapter.title || defaultTitle;
 
     document.title = `${pageTitle} – ${defaultTitle} – מיכאל פדידה`;
@@ -263,4 +265,9 @@ if (document.getElementById('tanach-hero')) {
 }
 if (document.getElementById('tanach-page')) {
     renderBookPage(new URLSearchParams(window.location.search).get('book'));
+}
+
+// Number of chapter entries, excluding essays about a whole book.
+function tanachChapterCount() {
+    return tanachChapters().filter(c => c.chapter).length;
 }
