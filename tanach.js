@@ -81,15 +81,21 @@ function breadcrumbHTML(items) {
         '</nav>';
 }
 
+function articlesLabel(n) {
+    return n === 1 ? 'מאמר אחד' : `${n} מאמרים`;
+}
+
+// Chip label: every article on the book. Full label (book heading): the
+// chapter coverage plus any essays on the whole book.
 function chapterCountLabel(book, full) {
     const entries = tanachChaptersOf(book.id);
-    const n = entries.filter(c => c.chapter).length;
-    if (!n) {
-        // Only essays about the whole book.
-        return entries.length === 1 ? 'מאמר על הספר' : `${entries.length} מאמרים על הספר`;
-    }
-    if (full && n < book.chapters) return `${n} מתוך ${book.chapters} פרקים`;
-    return `${n} פרקים`;
+    const chapters = entries.filter(c => c.chapter).length;
+    const essays = entries.length - chapters;
+    if (!full) return articlesLabel(entries.length);
+    const parts = [];
+    if (chapters) parts.push(`${chapters} מתוך ${book.chapters} פרקים`);
+    if (essays) parts.push(essays === 1 ? 'מאמר אחד על הספר' : `${essays} מאמרים על הספר`);
+    return parts.join(' ועוד ');
 }
 
 function bookChipHTML(book) {
@@ -143,7 +149,7 @@ function renderTanachHero() {
         '<div class="tanach-hero">' +
             '<div class="hero-head">' +
                 '<h2><a href="tanach.html">פרשנות פרקי תנ"ך</a></h2>' +
-                `<span class="book-meta">${tanachChapterCount()} פרקים</span>` +
+                `<span class="book-meta">${articlesLabel(tanachChapterCount())}</span>` +
             '</div>' +
             '<p class="hero-intro">עיון בפרקי התנ"ך, פרק אחר פרק. בחרו ספר כדי לעבור לרשימת הפרקים.</p>' +
             bookGridHTML() +
@@ -163,7 +169,7 @@ function renderBookPage(bookId) {
             breadcrumbHTML([['index.html', 'בית'], [null, 'פרשנות תנ"ך']]) +
             '<div class="book-heading">' +
                 '<h2>פרשנות פרקי תנ"ך</h2>' +
-                `<span class="book-meta">${tanachChapterCount()} פרקים</span>` +
+                `<span class="book-meta">${articlesLabel(tanachChapterCount())}</span>` +
             '</div>' +
             (tanachChapterCount()
                 ? bookGridHTML()
@@ -272,7 +278,7 @@ if (document.getElementById('tanach-page')) {
     renderBookPage(new URLSearchParams(window.location.search).get('book'));
 }
 
-// Number of chapter entries, excluding essays about a whole book.
+// Number of articles in the Tanach section, essays on whole books included.
 function tanachChapterCount() {
-    return tanachChapters().filter(c => c.chapter).length;
+    return tanachChapters().length;
 }
