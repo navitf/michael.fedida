@@ -112,6 +112,14 @@ const articles = [
         description: "",
         pdf: "pdfs/eyov.pdf",
         slug: "eyov"
+    },
+    {
+        title: "אלעזר בן ערך יוצא לחיות בשלושה עולמות",
+        date: "",
+        description: "על אלעזר בן ערך, תלמידו של רבן יוחנן בן זכאי, ועל שלושה מקורות המציירים שלושה עולמות שונים שבהם יכול היה לחיות לאחר מות רבו.",
+        htmlFile: "articles/elazar_ben_arach.html",
+        image: "",
+        slug: "elazar-ben-arach"
     }
 ];
 

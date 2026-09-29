@@ -613,3 +613,11 @@ body.compact h1 {
     font-style: italic;
     margin-top: -0.5em;
 }
+
+/* Headings inside injected article text (the global h1 is styled for the purple header) */
+.article-text h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    text-shadow: none;
+    margin-bottom: 20px;
+}
