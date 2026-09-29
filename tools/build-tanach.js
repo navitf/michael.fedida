@@ -345,9 +345,14 @@ function convertAll(scan) {
     }
     let fileRef = item.fileRef;
     if (!promoted.ref && !fileRef) {
-      // No chapter anywhere: an essay about the whole book.
-      fileRef = BOOK_LEVEL;
-      stats.bookLevel.push(`${src} → ${book.name}, "${promoted.title || '(ללא כותרת)'}"`);
+      if (book.chapters === 1) {
+        // A one-chapter book (עובדיה) needs no chapter number.
+        fileRef = { chapter: 1, chapterEnd: null };
+      } else {
+        // No chapter anywhere: an essay about the whole book.
+        fileRef = BOOK_LEVEL;
+        stats.bookLevel.push(`${src} → ${book.name}, "${promoted.title || '(ללא כותרת)'}"`);
+      }
     }
     docs.push({ item, book, src, tmpMedia, html: cleanFragment(promoted.html), docRef: promoted.ref, fileRef });
   });
