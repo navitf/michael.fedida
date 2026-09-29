@@ -460,6 +460,9 @@ function extractTitleAndBlurb(html) {
     }
   }
 
+  // A picture caption is not the article's opening sentence.
+  rest = rest.replace(/<figure\b[\s\S]*?<\/figure>/g, '');
+
   let blurb = '';
   const paraRe = /<p\b([^>]*)>([\s\S]*?)<\/p>/g;
   let m;

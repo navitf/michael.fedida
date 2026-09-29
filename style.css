@@ -462,6 +462,21 @@ body.compact h1 {
     height: auto;
 }
 
+.tanach-text figure {
+    margin: 0 0 1.2em;
+    text-align: center;
+}
+
+.tanach-text figcaption {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    margin-top: 0.4em;
+}
+
+.tanach-text figcaption p {
+    margin: 0;
+}
+
 .tanach-text table {
     border-collapse: collapse;
     margin-bottom: 1em;
