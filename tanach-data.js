@@ -1,4 +1,4 @@
-// נוצר אוטומטית על ידי tools/build-tanach.js (2026-09-28) — אין לערוך ידנית.
+// נוצר אוטומטית על ידי tools/build-tanach.js (2026-09-29) — אין לערוך ידנית.
 // כדי לעדכן: הניחו קובץ Word בתיקיית הספר והריצו: node tools/build-tanach.js --src=<תיקיית המקור>
 const TANACH_BOOKS = [
   {"id":"bereshit","name":"בראשית","group":"תורה","chapters":50},
@@ -53,6 +53,7 @@ const TANACH_CHAPTERS = [
   {"bookId":"shoftim","chapter":13,"slug":"shoftim-13-16","htmlFile":"articles/tanach/shoftim/13-16.html","title":"עלייתו ונפילתו של שמשון","blurb":"שמשון – איש של מלים","chapterEnd":16},
   {"bookId":"shoftim","chapter":15,"slug":"shoftim-15","htmlFile":"articles/tanach/shoftim/15.html","title":"לדמותו של שמשון","blurb":"התכונה המשותפת לכל השופטים (ושמשון בכללם) היא היותם בעלי כריזמה."},
   {"bookId":"shoftim","chapter":17,"slug":"shoftim-17-21","htmlFile":"articles/tanach/shoftim/17-21.html","title":"חידת העריכה של ספר שופטים","blurb":"פרשת פסל מיכה ופרשת פילגש בגבעה – אירעו בראשית תקופת השופטים .","chapterEnd":21},
+  {"bookId":"shoftim","chapter":19,"slug":"shoftim-19","htmlFile":"articles/tanach/shoftim/19.html","title":"מדרש תמונה – גרברנד ואן דן אקהוט – הלוי בגבעה","blurb":"ספר שופטים בונה את העלילה של \"פילגש בגבעה\" בצורה ליניארית , ממצב אידילי של פיוס בין בני הזוג וימי כיף של כמה ימים בבית אבי האשה עד לקטסטרופה קולוסאלית בסופה."},
   {"bookId":"shoftim","chapter":19,"slug":"shoftim-19-21","htmlFile":"articles/tanach/shoftim/19-21.html","title":"\"בימים ההם אין מלך בישראל, איש הישר בעיניו יעשה\"","blurb":"המשפט מופיע פעמיים בסוף ספר שופטים בהקשר של שני אירועים שליליים: פסל מיכה ופילגש בגבעה.","chapterEnd":21},
   {"bookId":"shmuel-a","chapter":2,"slug":"shmuel-a-2","htmlFile":"articles/tanach/shmuel-a/2.html","title":"ומעיל קטון תעשה לו אמו","blurb":"\"ותאמר (בעלת האוב) ראיתי איש זקן עולה והוא עוטה מעיל\" (שמואל א, כ\"ח, 14)."},
   {"bookId":"shmuel-a","chapter":2,"slug":"shmuel-a-2a","htmlFile":"articles/tanach/shmuel-a/2a.html","title":"על תפילת חנה (שמואל א , ב , א - י)","blurb":"אני רוצה להעלות ברשימה זו תהייה בקשר לתפילת חנה, שפרשנים וחוקרים עמדו עליה.","part":"a"},

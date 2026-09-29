@@ -289,6 +289,8 @@ function cleanFragment(html) {
     h = h.replace(/<figure[\s\S]*?<\/figure>/g, '').replace(/<img[^>]*>/g, '');
   }
   h = h.replace(/<span dir="rtl">([\s\S]*?)<\/span>/g, '$1');
+  // Drop fixed image sizes so the stylesheet can scale pictures to the page.
+  h = h.replace(/(<img\b[^>]*?)\s+style="[^"]*"/g, '$1');
   h = h.replace(/<p[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/p>/g, '');
   h = h.replace(/\n{3,}/g, '\n\n');
   return h.trim() + '\n';
