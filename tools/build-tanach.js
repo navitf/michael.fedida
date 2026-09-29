@@ -264,7 +264,8 @@ function promoteHeader(html, book) {
     if (text === AUTHOR) lastMeta = i;
     else if (asRef && !ref) { ref = asRef; lastMeta = i; }
     else if (named && named !== book && !otherBook) { otherBook = named; lastMeta = i; }
-    else if (!title) { title = text; titleIdx = i; }
+    // A number glued to the first Hebrew letter ("34עור בעד עור") is a stray footnote mark.
+    else if (!title) { title = text.replace(/^\d+(?=[א-ת])/, ''); titleIdx = i; }
     else if (!subtitle) { subtitle = text; subtitleIdx = i; }
   });
 
@@ -354,7 +355,7 @@ function convertAll(scan) {
         stats.bookLevel.push(`${src} → ${book.name}, "${promoted.title || '(ללא כותרת)'}"`);
       }
     }
-    docs.push({ item, book, src, tmpMedia, html: cleanFragment(promoted.html), docRef: promoted.ref, fileRef });
+    docs.push({ item, book, src, tmpMedia, html: cleanFragment(promoted.html), docRef: promoted.ref, fileRef, title: promoted.title || '' });
   });
 
   // The document's own reference line wins over the file name, unless that
@@ -388,8 +389,13 @@ function convertAll(scan) {
   }
   const produced = new Set();
   for (const group of groups.values()) {
-    // The plainest file name ("שמואל ב כד.docx" before "שמואל ב כד המשך.docx") is the main article.
-    group.sort((a, b) => path.basename(a.src).length - path.basename(b.src).length || a.src.localeCompare(b.src, 'he'));
+    // The plainest file name ("שמואל ב כד.docx" before "שמואל ב כד המשך.docx") is the main article;
+    // essays on a whole book are ordered by their titles.
+    if (group[0].key.endsWith('/book')) {
+      group.sort((a, b) => a.title.localeCompare(b.title, 'he') || a.src.localeCompare(b.src, 'he'));
+    } else {
+      group.sort((a, b) => path.basename(a.src).length - path.basename(b.src).length || a.src.localeCompare(b.src, 'he'));
+    }
     let letter = 0;
     const kept = [];
     for (const d of group) {

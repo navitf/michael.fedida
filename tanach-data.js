@@ -25,7 +25,14 @@ const TANACH_BOOKS = [
   {"id":"chagai","name":"חגי","group":"נביאים","chapters":2},
   {"id":"zecharia","name":"זכריה","group":"נביאים","chapters":14},
   {"id":"malachi","name":"מלאכי","group":"נביאים","chapters":3},
-  {"id":"tehilim","name":"תהלים","group":"כתובים","chapters":150}
+  {"id":"tehilim","name":"תהלים","group":"כתובים","chapters":150},
+  {"id":"mishlei","name":"משלי","group":"כתובים","chapters":31},
+  {"id":"iyov","name":"איוב","group":"כתובים","chapters":42},
+  {"id":"shir-hashirim","name":"שיר השירים","group":"כתובים","chapters":8},
+  {"id":"rut","name":"רות","group":"כתובים","chapters":4},
+  {"id":"eicha","name":"איכה","group":"כתובים","chapters":5},
+  {"id":"kohelet","name":"קהלת","group":"כתובים","chapters":12},
+  {"id":"esther","name":"אסתר","group":"כתובים","chapters":10}
 ];
 const TANACH_CHAPTERS = [
   {"bookId":"bereshit","chapter":3,"slug":"bereshit-3","htmlFile":"articles/tanach/bereshit/3.html","title":"כי מעפר באת...","blurb":"מה המשמעות של האמונה בספר בראשית שהאדם נוצר מעפר?"},
@@ -292,5 +299,20 @@ const TANACH_CHAPTERS = [
   {"bookId":"tehilim","chapter":144,"slug":"tehilim-144","htmlFile":"articles/tanach/tehilim/144.html","title":"Cut and Paste?","blurb":"פרשנים שמו לב שפרט לקטע האחרון במזמור (פסוקים 12 - 14) מדובר בלקט של פסוקים ממזמורים אחרים, ביחוד ממזמור י\"ח, שהוא עצמו מופיע בספר שמואל ב כ\"ב ."},
   {"bookId":"tehilim","chapter":145,"slug":"tehilim-145","htmlFile":"articles/tanach/tehilim/145.html","title":"תהילה אידיאלית","blurb":"למזמור שני מאפיינים."},
   {"bookId":"tehilim","chapter":149,"slug":"tehilim-149","htmlFile":"articles/tanach/tehilim/149.html","title":"הסידור ותהלים","blurb":"עשרות פרקים מתהלים נכנסו לסידור התפילה, מהם רבים שנאמרים יום יום (פסוקי דזמרא) ואחרים שנכנסו להלל שנאמר בראש חודש ובשלושת הרגלים."},
-  {"bookId":"tehilim","chapter":150,"slug":"tehilim-150","htmlFile":"articles/tanach/tehilim/150.html","title":"כל הנשמה תהלל יה","blurb":"לכאורה המזמור אינו מהווה סיום הולם לספר תהלים."}
+  {"bookId":"tehilim","chapter":150,"slug":"tehilim-150","htmlFile":"articles/tanach/tehilim/150.html","title":"כל הנשמה תהלל יה","blurb":"לכאורה המזמור אינו מהווה סיום הולם לספר תהלים."},
+  {"bookId":"mishlei","chapter":7,"slug":"mishlei-7","htmlFile":"articles/tanach/mishlei/7.html","title":"הניאוף מסוכן","blurb":"הסכנות בניאוף עם אשת איש מודגשות פעמים אחדות בספר משלי."},
+  {"bookId":"mishlei","chapter":9,"slug":"mishlei-9","htmlFile":"articles/tanach/mishlei/9.html","title":"מים גנובים ימתקו","blurb":"החכמה והטיפשות מואנשות כנשים המציגות את החכמה ואת הטיפשות."},
+  {"bookId":"mishlei","chapter":10,"slug":"mishlei-10","htmlFile":"articles/tanach/mishlei/10.html","title":"2 או 4","blurb":"בפרק זה כמו ביתר הספר מככבים 4 טיפוסים של אנשים, פרי של שני זוגות של תכונות מנוגדות."},
+  {"bookId":"mishlei","chapter":30,"slug":"mishlei-30","htmlFile":"articles/tanach/mishlei/30.html","title":"חוחים בין שושנים","blurb":"ניתן לחלק את המסרים במשלי לשני סוגים: הראשון נועד לחנך את האנשים לבחור בדרך הטובה, תוך הבטחה שהם יתוגמלו אם יבחרו בה."},
+  {"bookId":"mishlei","chapter":31,"slug":"mishlei-31","htmlFile":"articles/tanach/mishlei/31.html","title":"אשת חיל","blurb":"השבחים לאשה ב\"אשל חיל\" נראים לכאורה יוצאי דופן, כי הם מעניקים לאשה מעמד יותר מכובד מזה שהיא זוכה לו במקרא."},
+  {"bookId":"iyov","chapter":1,"slug":"iyov-1","htmlFile":"articles/tanach/iyov/1.html","title":"השטן כמבקר","blurb":"\"אמר רבי לוי: שטן [שקיטרג על איוב] ופנינה [שהציקה לחנה] לשם שמים נתכוונו\" - בבא בתרא ט\"ז, עמוד א."},
+  {"bookId":"iyov","chapter":2,"slug":"iyov-2","htmlFile":"articles/tanach/iyov/2.html","title":"עור בעד עור","blurb":"במערכה הראשונה איוב מאבד את בניו ובנותיו ואת כל רכושו."},
+  {"bookId":"iyov","chapter":0,"slug":"iyov-book","htmlFile":"articles/tanach/iyov/book.html","title":"מבט אחר על ספר איוב","blurb":"\"אמר רבי לוי: שטן ופנינה לשם שמים נתכוונו\" _ בבא בתרא טז, א."},
+  {"bookId":"shir-hashirim","chapter":0,"slug":"shir-hashirim-book","htmlFile":"articles/tanach/shir-hashirim/book.html","title":"חידת שיר השירים","blurb":"מהו שיר השירים?"},
+  {"bookId":"rut","chapter":0,"slug":"rut-book","htmlFile":"articles/tanach/rut/book.html","title":"מגילת רות – חלק א'","blurb":"רות, תמר ואסתר"},
+  {"bookId":"rut","chapter":0,"slug":"rut-booka","htmlFile":"articles/tanach/rut/booka.html","title":"מגילת רות – חלק ב'","blurb":"מגילת רות וספר שופטים","part":"a"},
+  {"bookId":"rut","chapter":0,"slug":"rut-bookb","htmlFile":"articles/tanach/rut/bookb.html","title":"רות ושבועות","blurb":"מדוע קוראים את מגילת רות בחג השבועות?","part":"b"},
+  {"bookId":"eicha","chapter":0,"slug":"eicha-book","htmlFile":"articles/tanach/eicha/book.html","title":"איכה - 3 הערות","blurb":"בארבעת הפרקים הראשונים הקינות מסודרות לפי אלף בית."},
+  {"bookId":"kohelet","chapter":0,"slug":"kohelet-book","htmlFile":"articles/tanach/kohelet/book.html","title":"מדוע קוהלת לא נגנז?","blurb":"ספר קוהלת היה מועמד לגניזה כי הוא טוען שהכל הבל הבלים (\"ביקשו לגנוז ספר קוהלת, שמצאו בו דברים שהם נוטים לצד מינות [=אפיקורסות וכפירה]\")."},
+  {"bookId":"esther","chapter":0,"slug":"esther-book","htmlFile":"articles/tanach/esther/book.html","title":"מגילת אסתר","blurb":"אני מתרשם שמגילת אסתר אינה מספרת סיפור הסטורי אלא מבטאת משאלת לב של העם העם היהודי, שהיה רוצה שההסטוריה שלו תיראה אחרת."}
 ];

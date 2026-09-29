@@ -82,7 +82,12 @@ function breadcrumbHTML(items) {
 }
 
 function chapterCountLabel(book, full) {
-    const n = tanachChaptersOf(book.id).filter(c => c.chapter).length;
+    const entries = tanachChaptersOf(book.id);
+    const n = entries.filter(c => c.chapter).length;
+    if (!n) {
+        // Only essays about the whole book.
+        return entries.length === 1 ? 'מאמר על הספר' : `${entries.length} מאמרים על הספר`;
+    }
     if (full && n < book.chapters) return `${n} מתוך ${book.chapters} פרקים`;
     return `${n} פרקים`;
 }
