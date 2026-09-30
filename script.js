@@ -88,6 +88,14 @@ const articles = [
         htmlFile: "articles/al_hadimuy.html",
         image: "",
         slug: "keharerim-hatluyim-besaara"
+    },
+    {
+        title: "לפשר השיר \"תפילה\" של אברהם חלפי",
+        date: "",
+        description: "קריאה בשיר \"תפילה\" של אברהם חלפי כביטוי לחילון שמעניק משמעות חדשה למונחים דתיים.",
+        htmlFile: "articles/tfila_halfi.html",
+        image: "",
+        slug: "tfila-halfi"
     }
 ];
 
