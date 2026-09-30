@@ -622,6 +622,24 @@ body.compact h1 {
     margin-top: 2px;
 }
 
+/* מכתבים למערכת */
+.article-text .subtitle {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+.letter-signature {
+    font-weight: 600;
+    margin-top: 1em;
+}
+
+.letter-source {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+    padding-top: 0.6em;
+}
+
 .tanach-text .subtitle {
     text-align: center;
     color: #7f8c8d;
