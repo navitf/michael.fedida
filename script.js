@@ -1,7 +1,7 @@
 // Articles data - add new articles here
 // עבודת הדוקטורט, מוצגת בדף הבית תחת כותרת משלה
 const dissertation = {
-    title: "Honor, Kinship and Marriage in Arab Culture – כבוד, קרבת משפחה ונישואין בתרבות הערבית",
+    title: "Honor, Kinship and Marriage in Arab Culture – כבוד, שארות ונישואין בתרבות הערבית",
     date: "",
     description: "עבודת הדוקטור של מיכאל פדידה במחלקה לאנתרופולוגיה של אוניברסיטת שיקגו, מארס 1984 (באנגלית; סריקה של כתב היד המקורי).",
     pdf: "pdfs/phd.pdf",
