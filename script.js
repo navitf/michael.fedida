@@ -96,6 +96,22 @@ const articles = [
         htmlFile: "articles/tfila_halfi.html",
         image: "",
         slug: "tfila-halfi"
+    },
+    {
+        title: "הערות גולמיות לבבא קמא – פרק ח",
+        date: "",
+        description: "הערות על מבנהו של פרק החובל בבבא קמא, על ההבדל בין נזקי אדם לנזקי שור ועל חמשת ראשי הפיצוי.",
+        htmlFile: "articles/hachovel_notes.html",
+        image: "",
+        slug: "hachovel-notes"
+    },
+    {
+        title: "על צער ועל יחסיות – הערות על בבא קמא על המשנה הראשונה של החובל",
+        date: "",
+        description: "הערות ביקורתיות על טיעוני חז\"ל בפתיחת פרק החובל: פיצוי על צער, \"עין תחת עין\" ושאלת היחסיות.",
+        htmlFile: "articles/tzaar_yachasiut.html",
+        image: "",
+        slug: "tzaar-yachasiut"
     }
 ];
 
