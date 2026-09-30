@@ -19,6 +19,24 @@
    ```
 4. בצע commit ו-push
 
+## הוספת מכתב למערכת "הארץ"
+
+המכתבים מוצגים בתחתית דף הבית ומנוהלים ב-`letters.js`.
+
+1. שמור את המכתב כקובץ HTML בתיקיית `articles/letters/` (או כ-PDF בתיקיית `pdfs/`).
+2. הוסף רשומה בראש המערך `letters` ב-`letters.js` (החדש ראשון):
+   ```javascript
+   {
+       title: "כותרת המכתב",
+       date: "2025-01-31",
+       description: "שורה-שתיים על המכתב.",
+       htmlFile: "articles/letters/my-letter.html",
+       link: "https://www.haaretz.co.il/...",
+       slug: "my-letter"
+   }
+   ```
+3. בצע commit ו-push
+
 ## הוספת פרק תנ"ך (פרשנות פרקי תנ"ך)
 
 פרקי התנ"ך מנוהלים אוטומטית: קובץ Word אחד לכל פרק, סקריפט ממיר אותו ל-HTML ומעדכן את רשימת הפרקים.

@@ -29,6 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="tanach-data.js"></script>
     <script src="script.js"></script>
+    <script src="letters.js"></script>
     <script src="tanach.js"></script>
     <script>
         // Get article ID from URL
@@ -41,7 +42,8 @@
         if (chapter) {
             renderChapterPage(chapter);
         } else {
-        const article = articles.find(a => a.slug === articleId);
+        const article = articles.find(a => a.slug === articleId)
+            || ((typeof letters !== 'undefined') ? letters.find(a => a.slug === articleId) : null);
 
         if (article) {
             document.title = article.title;
