@@ -80,6 +80,14 @@ const articles = [
         htmlFile: "articles/elazar_ben_arach.html",
         image: "",
         slug: "elazar-ben-arach"
+    },
+    {
+        title: "על הדימוי \"כהררים התלויים בשערה\"",
+        date: "",
+        description: "פירוש לדימוי \"כהררים התלויים בשערה\" שבמשנת חגיגה, על רקע הביטויים \"סיני\" ו\"עוקר הרים\" ומעמדו של ההר במקרא ובמדרש.",
+        htmlFile: "articles/al_hadimuy.html",
+        image: "",
+        slug: "keharerim-hatluyim-besaara"
     }
 ];
 
