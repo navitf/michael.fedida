@@ -1,4 +1,14 @@
 // Articles data - add new articles here
+// עבודת הדוקטורט, מוצגת בדף הבית תחת כותרת משלה
+const dissertation = {
+    title: "Honor, Kinship and Marriage in Arab Culture – כבוד, קרבת משפחה ונישואין בתרבות הערבית",
+    date: "",
+    description: "עבודת הדוקטור של מיכאל פדידה במחלקה לאנתרופולוגיה של אוניברסיטת שיקגו, מארס 1984 (באנגלית; סריקה של כתב היד המקורי).",
+    pdf: "pdfs/phd.pdf",
+    image: "",
+    slug: "phd-dissertation"
+};
+
 const articles = [
     // {
     //     title: "טעויות מכוונות כמכשיר פואטי: עיון מחודש בציטוטי המקורות בסיפור \"שני תלמידי חכמים שהיו בעירנו\"",
@@ -142,6 +152,10 @@ function createArticleHTML(article) {
             ${links}
         </div>
     `;
+}
+
+if (document.getElementById('dissertation')) {
+    document.getElementById('dissertation').innerHTML = createArticleHTML(dissertation);
 }
 
 // Load all articles on homepage

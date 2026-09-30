@@ -43,7 +43,8 @@
             renderChapterPage(chapter);
         } else {
         const article = articles.find(a => a.slug === articleId)
-            || ((typeof letters !== 'undefined') ? letters.find(a => a.slug === articleId) : null);
+            || ((typeof letters !== 'undefined') ? letters.find(a => a.slug === articleId) : null)
+            || ((typeof dissertation !== 'undefined' && dissertation.slug === articleId) ? dissertation : null);
 
         if (article) {
             document.title = article.title;
