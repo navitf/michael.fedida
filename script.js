@@ -19,12 +19,12 @@ const articles = [
         slug: "mikve"
     },
     {
-        title: "חד גדיא",
+        title: "אגדת האחים ומקום המקדש",
         date: "",
-        description: "ניתוח חד גדיא כסיפור המציג שרשרת של חוסר צדק ואי-היגיון",
-        pdf: "pdfs/had_gadya.pdf",
-        image: "pictures/had_gadya_img.jpeg",
-        slug: "had_gadya"
+        description: "אודות אגדת האחים ומקורותיה השונים",
+        pdf: "pdfs/haachim.pdf",
+        image: "pictures/hahachim.jpg",
+        slug: "haachim"
     },
     {
         title: "הגדה של פסח: עבדות בתוך חירות או מה נשתנה וחד גדיא",
@@ -35,20 +35,20 @@ const articles = [
         slug: "hagada"
     },
     {
-        title: "אגדת האחים ומקום המקדש",
-        date: "",
-        description: "אודות אגדת האחים ומקורותיה השונים",
-        pdf: "pdfs/haachim.pdf",
-        image: "pictures/hahachim.jpg",
-        slug: "haachim"
+            title: "חד גדיא",
+            date: "",
+            description: "ניתוח חד גדיא כסיפור המציג שרשרת של חוסר צדק ואי-היגיון",
+            pdf: "pdfs/had_gadya.pdf",
+            image: "pictures/had_gadya_img.jpeg",
+            slug: "had_gadya"
     },
     {
-        title: "האותות והאתונות - שמואל א' י'",
-        date: "",
-        description: "ניתוח מעמיק של סיפור האותות ששמואל נתן לשאול והמשמעות הסמלית של האתונות",
-        htmlFile: "articles/haotot_atonot.html",
-        image: "pictures/atonot.jpg",
-        slug: "haotot-atonot"
+            title: "טשרניחובסקי בעין דור",
+            date: "",
+            description: "הסיפור המקראי על שאול ובעלת האוב בראי הבלדה ״בעין דור״ מאת שאול טשרניחובסקי",
+            htmlFile: "articles/ein_dor.html",
+            // image: "pictures/ein_dor.jpg",
+            slug: "ein-dor-article"
     },
     {
         title: "על הרי גלבוע - שמואל ב' א'",
@@ -59,52 +59,12 @@ const articles = [
         slug: "gilboa"
     },
     {
-        title: "טשרניחובסקי בעין דור",
-        date: "",
-        description: "הסיפור המקראי על שאול ובעלת האוב בראי הבלדה ״בעין דור״ מאת שאול טשרניחובסקי",
-        htmlFile: "articles/ein_dor.html",
-        // image: "pictures/ein_dor.jpg",
-        slug: "ein-dor-article"
-    },
-    {
-        title: "ניסוי דידקטי | ירמיהו ל\"ה",
-        date: "",
-        description: "ניתוח הסיפור על בני רכב בירמיהו ל\"ה: נאמנות למצוות אבותיהם, אורח חיים נוודי מול חברה עירונית, והמסר הדידקטי של ירמיהו לעם ישראל",
-        htmlFile: "articles/nisui_didacti_yirmiyaho.html",
-        image: "pictures/nisui_didacti.jpg",
-        slug: "nisui-didacti-article"
-    },
-    {
-        title: "מים לדוד ואוריה החתי - שמואל ב' כ\"ג",
-        date: "",
-        description: "ההנגדה בין דוד ששפך מים שהושגו בדם לבין דוד ששפך את דם אוריה החתי: ניתוח רשימת הגיבורים ומעשי הגבורה בשמואל ב' כ\"ג",
-        htmlFile: "articles/david_uria.html",
-        image: "pictures/david_uria.jpg",
-        slug: "david-uria"
-    },
-    {
         title: "פלימו והשטן - החטא וענשו",
         date: "",
         description: "פרשנות חדשה לסיפור התלמודי על פלימו והשטן: על חשיבות קבלת העני בכבוד, הסכנה ביראת חטא מופרזת, והלקח שהשטן מלמד על אהבת הזולת",
         htmlFile: "articles/plimo_satan.html",
         image: "pictures/plimo.jpg",
         slug: "plimo-satan"
-    },
-    {
-        title: "הנער בן מאה שנה ימות - ישעיהו ס\"ה",
-        date: "",
-        description: "על החזון האוטופי בישעיהו ס\"ה: היעלמות המוות בטרם עת, חברה של צדיקים, והשלום בין האדם ועולם החי",
-        htmlFile: "articles/100years_boy.html",
-        image: "pictures/100years_boy.jpg",
-        slug: "100years-boy"
-    },
-    {
-        title: "אל רחום וחנון - תהלים פ\"ו",
-        date: "",
-        description: "על הספק והריחוק מאלהים במזמור פ\"ו: המשורר מתפלל לישועה אך אינו בטוח שאלהים מאזין, בניגוד לביטחון המוחלט במזמור כג",
-        htmlFile: "articles/merciful_god.html",
-        image: "pictures/merciful_god.jpg",
-        slug: "merciful-god"
     },
     {
         title: "מבט אחר על ספר איוב",
