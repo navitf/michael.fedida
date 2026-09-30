@@ -460,8 +460,8 @@ function extractTitleAndBlurb(html) {
     }
   }
 
-  // A picture caption is not the article's opening sentence.
-  rest = rest.replace(/<figure\b[\s\S]*?<\/figure>/g, '');
+  // A picture caption or an opening dedication is not the article's first sentence.
+  rest = rest.replace(/<figure\b[\s\S]*?<\/figure>/g, '').replace(/<blockquote\b[\s\S]*?<\/blockquote>/g, '');
 
   let blurb = '';
   const paraRe = /<p\b([^>]*)>([\s\S]*?)<\/p>/g;

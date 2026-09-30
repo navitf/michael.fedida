@@ -1,4 +1,4 @@
-// נוצר אוטומטית על ידי tools/build-tanach.js (2026-09-29) — אין לערוך ידנית.
+// נוצר אוטומטית על ידי tools/build-tanach.js (2026-09-30) — אין לערוך ידנית.
 // כדי לעדכן: הניחו קובץ Word בתיקיית הספר והריצו: node tools/build-tanach.js --src=<תיקיית המקור>
 const TANACH_BOOKS = [
   {"id":"bereshit","name":"בראשית","group":"תורה","chapters":50},
@@ -77,6 +77,7 @@ const TANACH_CHAPTERS = [
   {"bookId":"shoftim","chapter":17,"slug":"shoftim-17-21","htmlFile":"articles/tanach/shoftim/17-21.html","title":"חידת העריכה של ספר שופטים","blurb":"פרשת פסל מיכה ופרשת פילגש בגבעה – אירעו בראשית תקופת השופטים .","chapterEnd":21},
   {"bookId":"shoftim","chapter":19,"slug":"shoftim-19","htmlFile":"articles/tanach/shoftim/19.html","title":"מדרש תמונה – גרברנד ואן דן אקהוט – הלוי בגבעה","blurb":"ספר שופטים בונה את העלילה של \"פילגש בגבעה\" בצורה ליניארית , ממצב אידילי של פיוס בין בני הזוג וימי כיף של כמה ימים בבית אבי האשה עד לקטסטרופה קולוסאלית בסופה."},
   {"bookId":"shoftim","chapter":19,"slug":"shoftim-19-21","htmlFile":"articles/tanach/shoftim/19-21.html","title":"\"בימים ההם אין מלך בישראל, איש הישר בעיניו יעשה\"","blurb":"המשפט מופיע פעמיים בסוף ספר שופטים בהקשר של שני אירועים שליליים: פסל מיכה ופילגש בגבעה.","chapterEnd":21},
+  {"bookId":"shoftim","chapter":19,"slug":"shoftim-19-21a","htmlFile":"articles/tanach/shoftim/19-21a.html","title":"פילגש בגבעה - גבולות הפרשנות החדשנית / תגובה לתיאוריית הרב משה כהן","blurb":"לאחרונה יצא הרב משה כהן בפרשנות חדשה ומהפכנית לפרשת \"פילגש בגבעה\": \"מי רצח את הפילגש?\" - ספר שופטים, כ', המכללה האקדמית הרצוג).","chapterEnd":21,"part":"a"},
   {"bookId":"shmuel-a","chapter":2,"slug":"shmuel-a-2","htmlFile":"articles/tanach/shmuel-a/2.html","title":"ומעיל קטון תעשה לו אמו","blurb":"\"ותאמר (בעלת האוב) ראיתי איש זקן עולה והוא עוטה מעיל\" (שמואל א, כ\"ח, 14)."},
   {"bookId":"shmuel-a","chapter":2,"slug":"shmuel-a-2a","htmlFile":"articles/tanach/shmuel-a/2a.html","title":"על תפילת חנה (שמואל א , ב , א - י)","blurb":"אני רוצה להעלות ברשימה זו תהייה בקשר לתפילת חנה, שפרשנים וחוקרים עמדו עליה.","part":"a"},
   {"bookId":"shmuel-a","chapter":8,"slug":"shmuel-a-8","htmlFile":"articles/tanach/shmuel-a/8.html","title":"המחלוקת על יסוד המלוכה","blurb":"המחלוקת בין העם שדרש הקמת משטר מלוכני לבין שמואל שהתנגד לה נושאת אופי אידיאולוגי."},
@@ -145,6 +146,9 @@ const TANACH_CHAPTERS = [
   {"bookId":"yeshayahu","chapter":55,"slug":"yeshayahu-55","htmlFile":"articles/tanach/yeshayahu/55.html","title":"על התשובה","blurb":"רעיון התשובה לא היה מקובל על בני דורו של הנביא."},
   {"bookId":"yeshayahu","chapter":56,"slug":"yeshayahu-56","htmlFile":"articles/tanach/yeshayahu/56.html","title":"כלבים עזי נפש","blurb":"בארבעה פסוקים בלבד מצליח הנביא לשקף בצורה מושלמת את אוזלת היד והמעילה בתפקיד של ראשי העם (ואולי גם של נביאי השקר)."},
   {"bookId":"yeshayahu","chapter":57,"slug":"yeshayahu-57","htmlFile":"articles/tanach/yeshayahu/57.html","title":"שתי הסעיפים","blurb":"הקורא את פרק נ\"ח בישעיהו לאחר קריאת פרק נ\"ז מופתע מאוד."},
+  {"bookId":"yeshayahu","chapter":58,"slug":"yeshayahu-58","htmlFile":"articles/tanach/yeshayahu/58.html","title":"\"פלימו והשטן\" וישעיהו נ\"ח","blurb":"הסיפור פלימו והשטן זכה לתשומת לב רבה של חוקרי האגדה של חז\"ל."},
+  {"bookId":"yeshayahu","chapter":59,"slug":"yeshayahu-59","htmlFile":"articles/tanach/yeshayahu/59.html","title":"הוידוי תנאי לגאולה","blurb":"פרק נט מעורר בעייה פרשנית, שכן הסיפא של הפרק ( פסוקים טז – כא) אינה מתיישבת עם הרישא שלו (פסוקים א – ח)."},
+  {"bookId":"yeshayahu","chapter":60,"slug":"yeshayahu-60","htmlFile":"articles/tanach/yeshayahu/60.html","title":"שיבת ציון כפנטזיה","blurb":"הקורא את הפרק צופה כביכול בסרט רב אפקטים שמוקרן מהסוף להתחלה, עם תרחישים הפוכים ומפצים של אסונות העבר."},
   {"bookId":"yeshayahu","chapter":61,"slug":"yeshayahu-61","htmlFile":"articles/tanach/yeshayahu/61.html","title":"שתי פנים לעבודה","blurb":"יש במקרא שתי עמדות לגבי עבודת האדמה כפי שהן באות כבר לידי ביטוי בפרשת בראשית."},
   {"bookId":"yeshayahu","chapter":63,"slug":"yeshayahu-63","htmlFile":"articles/tanach/yeshayahu/63.html","title":"כי אתה אבינו","blurb":"במקרא נעשה שימוש מושאל בכינויי משפחה (כגון: אב, בן, בת, אח, אחות) לגבי אנשים שאינם קרובי משפחה, כדי לבטא קרבה עמוקה ביניהם."},
   {"bookId":"yeshayahu","chapter":65,"slug":"yeshayahu-65","htmlFile":"articles/tanach/yeshayahu/65.html","title":"הנער בן מאה שנה ימות","blurb":"פרק אוטופי זה שבו אלהים בורא ארץ חדשה ושמים חדשים אחד השינויים שיתרחשו בקיום האנושי הוא היעלמות תופעת המוות בטרם עת: \" לא יהיה משם עול ימים וזקן אשר לא ימלא…"},
