@@ -622,6 +622,36 @@ body.compact h1 {
     margin-top: 2px;
 }
 
+/* שיר מצוטט בראש מאמר */
+.poem {
+    margin: 1.2em auto 1.6em;
+    padding: 1em 1.4em;
+    border-right: 3px solid #8e9bd6;
+    background: #f5f6fb;
+    max-width: 34em;
+    line-height: 1.9;
+}
+
+.poem p {
+    margin: 0 0 1em;
+    text-indent: 0;
+}
+
+.poem .poem-title {
+    font-weight: 700;
+}
+
+.poem .poem-motto {
+    font-style: italic;
+    color: #555;
+}
+
+.poem .poem-credit {
+    font-size: 0.85em;
+    color: #7f8c8d;
+    margin-bottom: 0;
+}
+
 /* מכתבים למערכת */
 .article-text .subtitle {
     color: #7f8c8d;

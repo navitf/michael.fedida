@@ -465,10 +465,16 @@ function extractTitleAndBlurb(html) {
 
   let blurb = '';
   const paraRe = /<p\b([^>]*)>([\s\S]*?)<\/p>/g;
+  const paras = [];
   let m;
-  while ((m = paraRe.exec(rest))) {
-    if (/class="subtitle"/.test(m[1])) continue;
-    const t = textOf(m[2]);
+  while ((m = paraRe.exec(rest))) paras.push({ attrs: m[1], inner: m[2] });
+  const isVerse = (p) => p && /<br\b/.test(p.inner);
+  for (let i = 0; i < paras.length; i++) {
+    const p = paras[i];
+    if (/class="subtitle"/.test(p.attrs)) continue;
+    // A quoted poem at the top (lines joined by <br>, with its heading and colophon) is not the blurb.
+    if (isVerse(p) || isVerse(paras[i + 1]) || isVerse(paras[i - 1])) continue;
+    const t = textOf(p.inner);
     if (!t) continue;
     const sentence = t.match(/^(.*?[.!?])(\s|$)/);
     blurb = sentence ? sentence[1] : t;
