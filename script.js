@@ -51,14 +51,6 @@ const articles = [
         slug: "haotot-atonot"
     },
     {
-        title: "על הרי גלבוע - שמואל ב' א'",
-        date: "",
-        description: "ניתוח הבלדה של טשרניחובסקי על הקרב האחרון של שאול: המבנה המתמטי של השיר, השפעת קינת דוד, ותפקיד התקיעה בשופר",
-        htmlFile: "articles/gilboa.html",
-        image: "pictures/gilboa.jpg",
-        slug: "gilboa"
-    },
-    {
         title: "טשרניחובסקי בעין דור",
         date: "",
         description: "הסיפור המקראי על שאול ובעלת האוב בראי הבלדה ״בעין דור״ מאת שאול טשרניחובסקי",
