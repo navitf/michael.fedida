@@ -12,6 +12,14 @@ const letters = [
         "slug": "letter-shmita-budget"
     },
     {
+        "title": "איך לשקר בעזרת סטטיסטיקה",
+        "date": "2020-05-31",
+        "description": "לא מספר הקולות אלא מספר המנדטים קובע את גודלה של מפלגה: על טענת נתניהו שהליכוד זכה בהכי הרבה קולות בתולדות המדינה.",
+        "htmlFile": "articles/letters/2020-05-31-lying-with-statistics.html",
+        "link": "https://www.haaretz.co.il/opinions/letters/2020-05-30/ty-article/.premium/0000017f-db0b-d4e1-a57f-fbcf65a00000",
+        "slug": "letter-lying-with-statistics"
+    },
+    {
         "title": "מתנות זה לא",
         "date": "2022-07-15",
         "description": "על העטיפה שהופכת מוצר למתנה, ומדוע הסיגרים והשמפניות בתיק 1000 אינם מתנות.",
