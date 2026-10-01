@@ -316,6 +316,7 @@ const TANACH_CHAPTERS = [
   {"bookId":"mishlei","chapter":31,"slug":"mishlei-31","htmlFile":"articles/tanach/mishlei/31.html","title":"אשת חיל","blurb":"השבחים לאשה ב\"אשל חיל\" נראים לכאורה יוצאי דופן, כי הם מעניקים לאשה מעמד יותר מכובד מזה שהיא זוכה לו במקרא."},
   {"bookId":"iyov","chapter":1,"slug":"iyov-1","htmlFile":"articles/tanach/iyov/1.html","title":"השטן כמבקר","blurb":"\"אמר רבי לוי: שטן [שקיטרג על איוב] ופנינה [שהציקה לחנה] לשם שמים נתכוונו\" - בבא בתרא ט\"ז, עמוד א."},
   {"bookId":"iyov","chapter":2,"slug":"iyov-2","htmlFile":"articles/tanach/iyov/2.html","title":"עור בעד עור","blurb":"במערכה הראשונה איוב מאבד את בניו ובנותיו ואת כל רכושו."},
+  {"bookId":"iyov","chapter":29,"slug":"iyov-29-31","htmlFile":"articles/tanach/iyov/29-31.html","title":"איוב כ\"ט-ל\"א: שתיקת האב השכול","blurb":"בפרקי הסיום של נאומו, איוב מתרפק על עברו המזהיר ומציג כתב הגנה מפורט על התנהגותו המוסרית המושלמת.","chapterEnd":31},
   {"bookId":"iyov","chapter":0,"slug":"iyov-book","htmlFile":"articles/tanach/iyov/book.html","title":"מבט אחר על ספר איוב","blurb":"\"אמר רבי לוי: שטן ופנינה לשם שמים נתכוונו\" _ בבא בתרא טז, א."},
   {"bookId":"shir-hashirim","chapter":0,"slug":"shir-hashirim-book","htmlFile":"articles/tanach/shir-hashirim/book.html","title":"חידת שיר השירים","blurb":"מהו שיר השירים?"},
   {"bookId":"rut","chapter":0,"slug":"rut-book","htmlFile":"articles/tanach/rut/book.html","title":"מגילת רות – חלק א'","blurb":"רות, תמר ואסתר"},
