@@ -1,4 +1,4 @@
-// נוצר אוטומטית על ידי tools/build-tanach.js (2026-09-30) — אין לערוך ידנית.
+// נוצר אוטומטית על ידי tools/build-tanach.js (2026-10-01) — אין לערוך ידנית.
 // כדי לעדכן: הניחו קובץ Word בתיקיית הספר והריצו: node tools/build-tanach.js --src=<תיקיית המקור>
 const TANACH_BOOKS = [
   {"id":"bereshit","name":"בראשית","group":"תורה","chapters":50},
@@ -102,7 +102,6 @@ const TANACH_CHAPTERS = [
   {"bookId":"shmuel-b","chapter":19,"slug":"shmuel-b-19","htmlFile":"articles/tanach/shmuel-b/19.html","title":"\" מי יתן מותי אני תחתיך \"","blurb":"האבל המופגן והמתפרץ של דוד על מות אבשלום בנו נוגע ללב ומעורר הזדהות."},
   {"bookId":"shmuel-b","chapter":23,"slug":"shmuel-b-23","htmlFile":"articles/tanach/shmuel-b/23.html","title":"מים לדוד ואוריה החתי","blurb":"יש קוראים המתייחסים לקטעים בתנ\"ך שיש בהם רשימות של שמות, כאל דפים בספר טלפונים ומדלגים עליהם."},
   {"bookId":"shmuel-b","chapter":24,"slug":"shmuel-b-24","htmlFile":"articles/tanach/shmuel-b/24.html","title":"מקום המקדש","blurb":"דוד העלה קרבנות לה' במזבח שנבנה במקום ששימש גורן לארונה היבוסי ."},
-  {"bookId":"shmuel-b","chapter":24,"slug":"shmuel-b-24a","htmlFile":"articles/tanach/shmuel-b/24a.html","title":"הי יונה","blurb":"אני מצרף קטע שכתבתי לרשימה שלי, כאשר חשבתי שרש\"י ואחרים לא התייחסו לשאלה: מדוע דוד קנה את הגורן מהיבוסי , הרי הוא שייך לשבעת העממים ועם ישראל זכאי לנשל אותו…","part":"a"},
   {"bookId":"melachim-a","chapter":8,"slug":"melachim-a-8","htmlFile":"articles/tanach/melachim-a/8.html","title":"\"הנה השמים ושמי השמים לא יכלכלוך\"","blurb":"שלמה עמד בתפילתו על פרדוקס – הרי אלהים נמצא בכל מקום ביקום, ואם כן כיצד אפשר לצמצמו למקום מסויים כביכול הוא שוכן במקדש?"},
   {"bookId":"melachim-a","chapter":11,"slug":"melachim-a-11","htmlFile":"articles/tanach/melachim-a/11.html","title":"הרמונות או שגרירויות?","blurb":"שמעתי לפני הרבה שנים בסמינריון על מרקס מפיו של פרופ' שלמה אבינרי (אם אני זוכר נכון), שאי אפשר לקרוא את כל הספרים ואי אפשר לאהוב את כל הנשים."},
   {"bookId":"melachim-a","chapter":13,"slug":"melachim-a-13","htmlFile":"articles/tanach/melachim-a/13.html","title":"הנביא, האריה והחמור","blurb":"פרקנו מכיל את אחד הסיפורים המוזרים ביותר במקרא."},
