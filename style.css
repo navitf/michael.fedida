@@ -652,6 +652,23 @@ body.compact h1 {
     margin-bottom: 0;
 }
 
+/* טבלת מבייש ומתבייש */
+.article-text table.matrix {
+    border-collapse: collapse;
+    margin: 1em auto;
+}
+
+.article-text table.matrix th,
+.article-text table.matrix td {
+    border: 1px solid #bbb;
+    padding: 6px 18px;
+    text-align: center;
+}
+
+.article-text table.matrix th {
+    background: #f1f2f8;
+}
+
 /* מכתבים למערכת */
 .article-text .subtitle {
     color: #7f8c8d;
