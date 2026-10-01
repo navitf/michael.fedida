@@ -1,4 +1,14 @@
 // Articles data - add new articles here
+// עבודת המאסטר, מוצגת בדף הבית תחת כותרת משלה
+const masters = {
+    title: "עבודת המאסטר של מיכאל פדידה",
+    date: "",
+    description: "עבודת מאסטר בהדרכת ד\"ר משה שוקד ופרופסור עמנואל מרקס, אפריל 1972 (סריקה של העבודה המקורית).",
+    pdf: "pdfs/masters.pdf",
+    image: "",
+    slug: "masters-thesis"
+};
+
 // עבודת הדוקטורט, מוצגת בדף הבית תחת כותרת משלה
 const dissertation = {
     title: "Honor, Kinship and Marriage in Arab Culture – כבוד, שארות ונישואין בתרבות הערבית",
@@ -152,6 +162,10 @@ function createArticleHTML(article) {
             ${links}
         </div>
     `;
+}
+
+if (document.getElementById('masters')) {
+    document.getElementById('masters').innerHTML = createArticleHTML(masters);
 }
 
 if (document.getElementById('dissertation')) {
