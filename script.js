@@ -63,6 +63,13 @@ const articles = [
             slug: "had_gadya"
     },
     {
+            title: "מבט אחר על ספר איוב",
+            date: "",
+            description: "",
+            pdf: "pdfs/eyov.pdf",
+            slug: "eyov"
+    },
+    {
             title: "טשרניחובסקי בעין דור",
             date: "",
             description: "הסיפור המקראי על שאול ובעלת האוב בראי הבלדה ״בעין דור״ מאת שאול טשרניחובסקי",
@@ -79,19 +86,20 @@ const articles = [
         slug: "gilboa"
     },
     {
+            title: "לפשר השיר \"תפילה\" של אברהם חלפי",
+            date: "",
+            description: "קריאה בשיר \"תפילה\" של אברהם חלפי כביטוי לחילון שמעניק משמעות חדשה למונחים דתיים.",
+            htmlFile: "articles/tfila_halfi.html",
+            image: "",
+            slug: "tfila-halfi"
+    },
+    {
         title: "פלימו והשטן - החטא וענשו",
         date: "",
         description: "פרשנות חדשה לסיפור התלמודי על פלימו והשטן: על חשיבות קבלת העני בכבוד, הסכנה ביראת חטא מופרזת, והלקח שהשטן מלמד על אהבת הזולת",
         htmlFile: "articles/plimo_satan.html",
         image: "pictures/plimo.jpg",
         slug: "plimo-satan"
-    },
-    {
-        title: "מבט אחר על ספר איוב",
-        date: "",
-        description: "",
-        pdf: "pdfs/eyov.pdf",
-        slug: "eyov"
     },
     {
         title: "אלעזר בן ערך יוצא לחיות בשלושה עולמות",
@@ -108,14 +116,6 @@ const articles = [
         htmlFile: "articles/al_hadimuy.html",
         image: "",
         slug: "keharerim-hatluyim-besaara"
-    },
-    {
-        title: "לפשר השיר \"תפילה\" של אברהם חלפי",
-        date: "",
-        description: "קריאה בשיר \"תפילה\" של אברהם חלפי כביטוי לחילון שמעניק משמעות חדשה למונחים דתיים.",
-        htmlFile: "articles/tfila_halfi.html",
-        image: "",
-        slug: "tfila-halfi"
     },
     {
         title: "הערות גולמיות לבבא קמא – פרק ח",
