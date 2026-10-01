@@ -11,20 +11,23 @@
     <header>
         <h1><a href="index.html">מיכאל פדידה, חיבורים ומאמרים</a></h1>
         <nav>
-            <a href="index.html">מאמרים</a>
             <a href="tanach.html">פרשנות תנ"ך</a>
+            <a href="index.html#articles-section">חיבורים ומאמרים</a>
+            <a href="index.html#research">מחקר</a>
+            <a href="index.html#letters-section">מכתבים למערכת הארץ</a>
             <a href="about.html">על אודות</a>
         </nav>
     </header>
     <main>
         <section id="tanach-hero"></section>
-        <h2 class="section-title">חיבורים ומאמרים</h2>
+        <h2 class="section-title" id="articles-section">חיבורים ומאמרים</h2>
         <div id="articles"></div>
-        <h2 class="section-title">עבודת מאסטר</h2>
+        <h2 class="section-title" id="research">מחקר</h2>
+        <h3 class="subsection-title">עבודת מאסטר</h3>
         <div id="masters"></div>
-        <h2 class="section-title">עבודת דוקטורט</h2>
+        <h3 class="subsection-title">עבודת דוקטורט</h3>
         <div id="dissertation"></div>
-        <h2 class="section-title">מכתבים למערכת הארץ</h2>
+        <h2 class="section-title" id="letters-section">מכתבים למערכת הארץ</h2>
         <div id="letters"></div>
     </main>
     <footer style="text-align: center; padding: 20px; color: #666; font-size: 0.9em;">
@@ -34,5 +37,15 @@
     <script src="script.js"></script>
     <script src="letters.js"></script>
     <script src="tanach.js"></script>
+    <script>
+        // The sections are filled in by script, so jump to a #section link after they exist and again once images load.
+        function jumpToHash() {
+            if (!location.hash) return;
+            const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+            if (target) target.scrollIntoView({ behavior: 'instant' });
+        }
+        jumpToHash();
+        window.addEventListener('load', jumpToHash);
+    </script>
 </body>
 </html>

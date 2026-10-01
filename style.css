@@ -669,6 +669,17 @@ body.compact h1 {
     background: #f1f2f8;
 }
 
+/* כותרת משנה בדף הבית (תת-סעיף של מחקר) */
+.subsection-title {
+    font-size: 1.15rem;
+    color: #5c6bc0;
+    margin: 1.4em 0 0.6em;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 /* מכתבים למערכת */
 .article-text .subtitle {
     color: #7f8c8d;
