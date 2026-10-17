@@ -61,6 +61,58 @@ nav a:hover {
     opacity: 0.8;
 }
 
+/* Header menu: a wrapping row with fixed gaps; each label stays on one line. */
+header nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 24px;
+}
+
+header nav a {
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+header nav a:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* On phones the links wrap onto several lines; show each as a chip so they read as separate items. */
+@media (max-width: 600px) {
+    header,
+    body.compact header,
+    body:has(#article-content) header {
+        padding: 24px 16px;
+    }
+
+    h1,
+    body.compact h1,
+    body:has(#article-content) h1 {
+        font-size: 1.5rem;
+    }
+
+    header nav {
+        gap: 8px;
+        margin-top: 6px;
+    }
+
+    header nav a {
+        font-size: 0.95rem;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    header nav a:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.26);
+    }
+}
+
 .article {
     margin-bottom: 30px;
     padding: 30px;
