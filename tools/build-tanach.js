@@ -585,6 +585,13 @@ function main() {
     if (clashes.length) console.log(`\n  !! slug collisions with script.js: ${clashes.join(', ')}`);
 
     if (SITEMAP) { writeSitemap(books, chapters); console.log('\nנכתב sitemap.xml'); }
+
+    // Keep the site search in step with the chapters just indexed.
+    try {
+      execFileSync(process.execPath, [path.join(__dirname, 'build-search.js')], { stdio: 'inherit' });
+    } catch (err) {
+      console.warn(`  ! build-search.js נכשל: ${err.message}`);
+    }
   }
 
   if (scan) {

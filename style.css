@@ -82,15 +82,16 @@ header nav a:focus-visible {
 
 /* On phones the links wrap onto several lines; show each as a chip so they read as separate items. */
 @media (max-width: 600px) {
-    header,
-    body.compact header,
-    body:has(#article-content) header {
+    /* `html` raises these above the compact-header rules further down the file. */
+    html header,
+    html body.compact header,
+    html body:has(#article-content) header {
         padding: 24px 16px;
     }
 
-    h1,
-    body.compact h1,
-    body:has(#article-content) h1 {
+    html h1,
+    html body.compact h1,
+    html body:has(#article-content) h1 {
         font-size: 1.5rem;
     }
 
@@ -730,6 +731,150 @@ body.compact h1 {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* =========================================================================
+   חיפוש באתר
+   ========================================================================= */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* The small box under the header menu, on every page except the search page itself */
+.site-search {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.site-search input {
+    width: min(320px, 100%);
+    font: inherit;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.site-search input::placeholder {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.site-search input:focus {
+    outline: none;
+    background: white;
+    color: #2c3e50;
+    border-color: white;
+}
+
+.site-search input:focus::placeholder {
+    color: #7f8c8d;
+}
+
+.search-page .site-search {
+    display: none;
+}
+
+/* The search page */
+.search-box input {
+    width: 100%;
+    font: inherit;
+    font-size: 1.1rem;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid #c9cdea;
+    background: white;
+    color: #2c3e50;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+}
+
+.search-box input:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 1px;
+}
+
+.sr-status {
+    color: #5f6b7a;
+    margin: 18px 0 6px;
+}
+
+.sr-section .section-title {
+    margin-top: 28px;
+}
+
+.sr-count {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-weight: 400;
+}
+
+.search-result {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-right: 3px solid #667eea;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.search-result h3 {
+    font-size: 1.1rem;
+    margin: 2px 0 6px;
+}
+
+.search-result h3 a {
+    color: #4b55c4;
+    text-decoration: none;
+}
+
+.search-result h3 a:hover {
+    text-decoration: underline;
+}
+
+.sr-meta {
+    font-size: 0.82rem;
+    color: #7f8c8d;
+}
+
+.sr-snippet {
+    color: #3b4654;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 4px 0 0;
+}
+
+.sr-snippet mark {
+    background: #fff0a6;
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
+.sr-page {
+    font-size: 0.82rem;
+    color: #667eea;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .site-search {
+        margin-top: 12px;
+    }
+
+    .site-search input {
+        width: 100%;
+    }
+
+    .search-result {
+        padding: 14px 16px;
+    }
 }
 
 /* מכתבים למערכת */
