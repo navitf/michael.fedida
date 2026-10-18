@@ -58,6 +58,14 @@ const letters = [
         "htmlFile": "articles/letters/2024-10-22-deri-theology.html",
         "link": "https://www.haaretz.co.il/opinions/letters/2024-10-21/ty-article-opinion/.premium/00000192-ae2b-d049-a3db-bf7f6e970000",
         "slug": "letter-deri-theology"
+    },
+    {
+        "title": "על חונקי הכרמים",
+        "date": "2026-10-18",
+        "description": "על פשיטות מתנחלים על כרמי זיתים בגדה, ההקבלה לפשיטות מדין ועמלק בספר שופטים, והאזהרה שהארץ תקיא את יושביה.",
+        "htmlFile": "articles/letters/2026-10-18-olive-groves.html",
+        "link": "https://www.haaretz.co.il/opinions/letters/2026-10-17/ty-article-opinion/.premium/000001a1-3f54-d846-a9eb-bfdcb3ea0000",
+        "slug": "letter-olive-groves"
     }
 ];
 
