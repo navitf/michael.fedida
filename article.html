@@ -50,7 +50,8 @@
         const article = articles.find(a => a.slug === articleId)
             || ((typeof letters !== 'undefined') ? letters.find(a => a.slug === articleId) : null)
             || ((typeof dissertation !== 'undefined' && dissertation.slug === articleId) ? dissertation : null)
-            || ((typeof masters !== 'undefined' && masters.slug === articleId) ? masters : null);
+            || ((typeof masters !== 'undefined' && masters.slug === articleId) ? masters : null)
+            || ((typeof researchReports !== 'undefined') ? researchReports.find(a => a.slug === articleId) : null);
 
         if (article) {
             document.title = article.title;

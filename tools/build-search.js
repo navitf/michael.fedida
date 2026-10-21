@@ -30,7 +30,7 @@ function loadData() {
   const code = ['tanach-data.js', 'script.js', 'letters.js']
     .map((f) => fs.readFileSync(f, 'utf8'))
     .join('\n;\n');
-  return vm.runInContext(code + '\n;({ chapters: TANACH_CHAPTERS, articles, masters, dissertation, letters })', ctx);
+  return vm.runInContext(code + '\n;({ chapters: TANACH_CHAPTERS, articles, masters, dissertation, researchReports: typeof researchReports !== "undefined" ? researchReports : [], letters })', ctx);
 }
 
 // ---------------------------------------------------------------- text extraction
@@ -77,7 +77,7 @@ function main() {
     report.chapters++;
   }
 
-  const entries = [...data.articles, data.masters, data.dissertation, ...data.letters];
+  const entries = [...data.articles, data.masters, data.dissertation, ...data.researchReports, ...data.letters];
   for (const e of entries) {
     if (e.htmlFile) {
       if (!fs.existsSync(e.htmlFile)) { report.missing.push(e.htmlFile); continue; }

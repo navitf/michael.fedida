@@ -19,6 +19,18 @@ const dissertation = {
     slug: "phd-dissertation"
 };
 
+// דוחות מחקר, מוצגים בדף הבית במדור "מחקר" אחרי עבודות המאסטר והדוקטור
+const researchReports = [
+    {
+        title: "חשיפה לשמש בקרב תלמידי חט\"ב בתל-אביב-יפו: ידע, עמדות והתנהגות",
+        date: "",
+        description: "מיכאל פדידה, מנשה חדד ורפאל שפיר. מחקרים וסקרים 67, המרכז למחקר כלכלי וחברתי של עיריית תל-אביב-יפו והמחלקה לכירורגיה פלסטית במרכז הרפואי ע\"ש סוראסקי, אפריל 1994 (סריקה של הדוח המקורי).",
+        pdf: "pdfs/sun_exposure_1994.pdf",
+        image: "",
+        slug: "sun-exposure-1994"
+    }
+];
+
 const articles = [
     // {
     //     title: "טעויות מכוונות כמכשיר פואטי: עיון מחודש בציטוטי המקורות בסיפור \"שני תלמידי חכמים שהיו בעירנו\"",
@@ -170,6 +182,10 @@ function createArticleHTML(article) {
             ${links}
         </div>
     `;
+}
+
+if (document.getElementById('research-reports')) {
+    document.getElementById('research-reports').innerHTML = researchReports.map(createArticleHTML).join('');
 }
 
 if (document.getElementById('masters')) {

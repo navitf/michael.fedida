@@ -81,6 +81,9 @@ function searchDocs(texts) {
     for (const r of [masters, dissertation]) {
         add({ slug: r.slug, section: 'research', title: r.title, meta: r === masters ? 'עבודת מאסטר' : 'עבודת דוקטורט', desc: r.description, url: `article.html?id=${r.slug}`, pdf: r.pdf });
     }
+    for (const r of (typeof researchReports !== 'undefined' ? researchReports : [])) {
+        add({ slug: r.slug, section: 'research', title: r.title, meta: 'דוח מחקר', desc: r.description, url: `article.html?id=${r.slug}`, pdf: r.pdf });
+    }
     for (const l of letters) {
         add({ slug: l.slug, section: 'letters', title: l.title, meta: letterDate(l.date), desc: l.description, url: `article.html?id=${l.slug}` });
     }
