@@ -78,7 +78,7 @@ const articles = [
             slug: "ein-dor-article"
     },
     {
-        title: "על הרי גלבוע - שמואל ב' א'",
+        title: "על הרי גלבוע",
         date: "",
         description: "ניתוח הבלדה של טשרניחובסקי על הקרב האחרון של שאול: המבנה המתמטי של השיר, השפעת קינת דוד, ותפקיד התקיעה בשופר",
         htmlFile: "articles/gilboa.html",
