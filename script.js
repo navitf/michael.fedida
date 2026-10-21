@@ -132,6 +132,14 @@ const articles = [
         htmlFile: "articles/tzaar_yachasiut.html",
         image: "",
         slug: "tzaar-yachasiut"
+    },
+    {
+        title: "על האנטומיה של הסמכות: ענידת דרגות בחלקי גוף שונים בצה\"ל",
+        date: "",
+        description: "מדוע דרגות החוגרים נענדות על הזרוע ודרגות הקצינים על הכתף: קריאה סמלית במיקום הדרגה על הגוף, והעדות מדרגות הנגדים שנענדו פעם על פרק היד.",
+        htmlFile: "articles/anatomy_of_ranks.html",
+        image: "",
+        slug: "anatomy-of-ranks"
     }
 ];
 
